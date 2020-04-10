@@ -12,7 +12,10 @@ fun main() {
     Item(name = "Conjured Mana Cake", sellIn = 3, quality = 6)
   ))
 
+  println("Running shop for a day...")
   shop.updateQuality()
-
   println("Done.")
+
+  println("Current items:")
+  shop.items.forEach(::println)
 }
