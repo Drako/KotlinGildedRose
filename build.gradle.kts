@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.3.71"
+    application
 }
 
 group = "guru.drako.examples"
@@ -27,6 +28,10 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${Version.JUNIT}")
     testImplementation("org.junit.jupiter:junit-jupiter-params:${Version.JUNIT}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Version.JUNIT}")
+}
+
+application {
+    mainClassName = "guru.drako.examples.gildedrose.MainKt"
 }
 
 tasks {
