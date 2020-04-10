@@ -1,4 +1,6 @@
-# Gilded Rose Refactoring Kata
+# Gilded Rose Refactoring Kata - Kotlin Edition
+
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Drako/KotlinGildedRose/blob/master/LICENSE)
 
 Hi and welcome to team Gilded Rose. As you know, we are a small inn with a 
 prime location in a prominent city ran by a friendly innkeeper named 
@@ -49,7 +51,7 @@ Clone the repository. Run `./gradlew test` from your shell. If you see
 output similar to the following screenshot, you are ready to 
 start refactoring.
 
-![alt text](images/build_output.png "Good Build Output")
+![alt text](images/test-output.png "Good Test Output")
 
 ## Who, What, Why?
 
@@ -59,8 +61,10 @@ What & Why: [Refactor This: The Gilded Rose Kata](http://iamnotmyself.com/2011/0
 
 ## Suggested attribution
 
-This work is by [@structFooBar](https://twitter.com/structFooBar)
-The original work is by [@TerryHughes](https://twitter.com/TerryHughes), [@NotMyself](https://twitter.com/NotMyself)
+Authors:
+ * this work: [@structFooBar](https://twitter.com/structFooBar)
+ * original work: [@TerryHughes](https://twitter.com/TerryHughes), [@NotMyself](https://twitter.com/NotMyself)
 
-The repository can be found at [https://github.com/Drako/KotlinGildedRose](https://github.com/Drako/KotlinGildedRose)
-The original C# version can be found at [https://github.com/NotMyself/GildedRose](https://github.com/NotMyself/GildedRose)
+Repositories:
+ * this project: [https://github.com/Drako/KotlinGildedRose](https://github.com/Drako/KotlinGildedRose)
+ * original project: [https://github.com/NotMyself/GildedRose](https://github.com/NotMyself/GildedRose)

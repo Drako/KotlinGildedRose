@@ -1,0 +1,15 @@
+# gradle cache
+.gradle/
+
+# intellij
+*.iml
+.idea/*
+!.idea/runConfigurations/
+!.idea/codeStyles/
+
+# build results
+build/
+out/
+
+# macOS crap
+.DS_Store
