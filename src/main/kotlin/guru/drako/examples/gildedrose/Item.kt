@@ -1,6 +1,6 @@
 package guru.drako.examples.gildedrose
 
-class Item(
+data class Item(
   val name: String,
   var sellIn: Int,
   var quality: Int
