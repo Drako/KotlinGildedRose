@@ -5,8 +5,13 @@ import kotlin.math.min
 
 class Shop(val items: List<Item>) {
   companion object {
-    private val LEGENDARY_ITEM_NAMES = listOf(
+    private val LEGENDARY_ITEMS = setOf(
       "Sulfuras, Hand of Ragnaros"
+    )
+
+    private val ITEMS_WITH_INCREASING_VALUE = setOf(
+      "Aged Brie",
+      "Backstage passes to a TAFKAL80ETC concert"
     )
 
     private const val MIN_QUALITY = 0
@@ -14,8 +19,8 @@ class Shop(val items: List<Item>) {
 
     private val Item.baseQualityModifier: Int
       get() = when (name) {
-        "Aged Brie", "Backstage passes to a TAFKAL80ETC concert" -> 1
-        in LEGENDARY_ITEM_NAMES -> 0
+        in ITEMS_WITH_INCREASING_VALUE -> 1
+        in LEGENDARY_ITEMS -> 0
         else -> -1
       }
 
@@ -30,14 +35,14 @@ class Shop(val items: List<Item>) {
         else -> if (sellIn <= 0) 2 else 1
       }
 
-    private fun Item.updateQuality(newValue: Int) {
-      if (name !in LEGENDARY_ITEM_NAMES) {
-        quality = min(MAX_QUALITY, max(MIN_QUALITY, newValue))
+    private inline fun Item.updateQuality(newValueGenerator: () -> Int) {
+      if (name !in LEGENDARY_ITEMS) {
+        quality = min(MAX_QUALITY, max(MIN_QUALITY, newValueGenerator()))
       }
     }
 
     private fun Item.updateSellIn() {
-      if (name !in LEGENDARY_ITEM_NAMES) {
+      if (name !in LEGENDARY_ITEMS) {
         --sellIn
       }
     }
@@ -47,7 +52,7 @@ class Shop(val items: List<Item>) {
     for (item in items) {
       val baseModifier = item.baseQualityModifier
       val factor = item.qualityFactor
-      item.updateQuality(newValue = item.quality + baseModifier * factor)
+      item.updateQuality { item.quality + baseModifier * factor }
       item.updateSellIn()
     }
   }
