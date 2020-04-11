@@ -20,7 +20,6 @@ class Shop(val items: List<Item>) {
     private val Item.baseQualityModifier: Int
       get() = when (name) {
         in ITEMS_WITH_INCREASING_VALUE -> 1
-        in LEGENDARY_ITEMS -> 0
         else -> -1
       }
 
@@ -34,26 +33,15 @@ class Shop(val items: List<Item>) {
         }
         else -> if (sellIn <= 0) 2 else 1
       }
-
-    private inline fun Item.updateQuality(newValueGenerator: () -> Int) {
-      if (name !in LEGENDARY_ITEMS) {
-        quality = min(MAX_QUALITY, max(MIN_QUALITY, newValueGenerator()))
-      }
-    }
-
-    private fun Item.updateSellIn() {
-      if (name !in LEGENDARY_ITEMS) {
-        --sellIn
-      }
-    }
   }
 
   fun updateQuality() {
-    for (item in items) {
-      val baseModifier = item.baseQualityModifier
-      val factor = item.qualityFactor
-      item.updateQuality { item.quality + baseModifier * factor }
-      item.updateSellIn()
-    }
+    items
+      .asSequence()
+      .filter { it.name !in LEGENDARY_ITEMS }
+      .forEach { with(it) {
+        quality = min(MAX_QUALITY, max(MIN_QUALITY, quality + baseQualityModifier * qualityFactor))
+        --sellIn
+      }}
   }
 }
