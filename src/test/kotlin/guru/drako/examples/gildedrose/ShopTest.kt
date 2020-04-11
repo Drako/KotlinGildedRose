@@ -68,6 +68,16 @@ class ShopTest {
         displayName = "regular items degrade twice as fast after sellIn",
         input = Item(name = "dummy", sellIn = -1, quality = 10),
         expected = Item(name = "dummy", sellIn = -2, quality = 8)
+      ),
+      TestData(
+        displayName = "conjured items degrade twice as fast as normal items",
+        input = Item(name = "conjured axe", sellIn = 10, quality = 10),
+        expected = Item(name = "conjured axe", sellIn = 9, quality = 8)
+      ),
+      TestData(
+        displayName = "conjured items degrade twice as fast as normal items (even after sellIn)",
+        input = Item(name = "conjured axe", sellIn = -1, quality = 10),
+        expected = Item(name = "conjured axe", sellIn = -2, quality = 6)
       )
     ).map { (displayName, input, expected) ->
       dynamicTest(displayName) {
