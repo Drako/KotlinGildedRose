@@ -31,7 +31,10 @@ class Shop(val items: List<Item>) {
           sellIn <= 10 -> 2
           else -> 1
         }
-        else -> if (sellIn <= 0) 2 else 1
+        else -> when {
+          name.startsWith(prefix = "conjured", ignoreCase = true) -> if (sellIn <= 0) 4 else 2
+          else -> if (sellIn <= 0) 2 else 1
+        }
       }
   }
 
