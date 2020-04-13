@@ -24,17 +24,15 @@ class Shop(val items: List<Item>) {
       }
 
     private val Item.qualityFactor: Int
-      get() = when (name) {
-        "Backstage passes to a TAFKAL80ETC concert" -> when {
+      get() = when {
+        name.startsWith(prefix = "backstage passes", ignoreCase = true) -> when {
           sellIn <= 0 -> -MAX_QUALITY
           sellIn <= 5 -> 3
           sellIn <= 10 -> 2
           else -> 1
         }
-        else -> when {
-          name.startsWith(prefix = "conjured", ignoreCase = true) -> if (sellIn <= 0) 4 else 2
-          else -> if (sellIn <= 0) 2 else 1
-        }
+        name.startsWith(prefix = "conjured", ignoreCase = true) -> if (sellIn <= 0) 4 else 2
+        else -> if (sellIn <= 0) 2 else 1
       }
   }
 
@@ -42,9 +40,11 @@ class Shop(val items: List<Item>) {
     items
       .asSequence()
       .filter { it.name !in LEGENDARY_ITEMS }
-      .forEach { with(it) {
-        quality = min(MAX_QUALITY, max(MIN_QUALITY, quality + baseQualityModifier * qualityFactor))
-        --sellIn
-      }}
+      .forEach {
+        with(it) {
+          quality = min(MAX_QUALITY, max(MIN_QUALITY, quality + baseQualityModifier * qualityFactor))
+          --sellIn
+        }
+      }
   }
 }
