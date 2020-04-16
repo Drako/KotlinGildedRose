@@ -35,7 +35,7 @@ class Shop(val items: List<Item>) {
   fun updateQuality() = items.asSequence()
     .filterNot(Item::isLegendary)
     .forEach {
-      it.quality = min(MAX_QUALITY, max(MIN_QUALITY, with(it) { quality + baseQualityModifier() * qualityFactor() }))
+      it.quality = min(MAX_QUALITY, max(MIN_QUALITY, it.quality + it.baseQualityModifier() * it.qualityFactor()))
       --it.sellIn
     }
 }
