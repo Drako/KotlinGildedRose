@@ -19,12 +19,6 @@ private fun Item.baseQualityModifier(): Int = if (hasIncreasingValue()) 1 else -
 
 private inline fun <T> Sequence<T>.forEachWith(action: T.() -> Unit) = forEach { it.action() }
 
-private fun clampQuality(value: Int) = when {
-  MIN_QUALITY > value -> MIN_QUALITY
-  value > MAX_QUALITY -> MAX_QUALITY
-  else -> value
-}
-
 private fun Item.qualityFactor(): Int = when {
   isBackstagePass() -> when {
     sellIn <= 0 -> -MAX_QUALITY
@@ -34,6 +28,12 @@ private fun Item.qualityFactor(): Int = when {
   }
   isConjured() -> if (sellIn <= 0) 4 else 2
   else -> if (sellIn <= 0) 2 else 1
+}
+
+private fun clampQuality(value: Int) = when {
+  MIN_QUALITY > value -> MIN_QUALITY
+  value > MAX_QUALITY -> MAX_QUALITY
+  else -> value
 }
 
 class Shop(val items: List<Item>) {
