@@ -1,8 +1,5 @@
 package guru.drako.examples.gildedrose
 
-import kotlin.math.max
-import kotlin.math.min
-
 private const val MIN_QUALITY = 0
 private const val MAX_QUALITY = 50
 
@@ -20,6 +17,14 @@ private fun Item.isConjured(): Boolean = name.startsWith(prefix = "conjured", ig
 
 private fun Item.baseQualityModifier(): Int = if (hasIncreasingValue()) 1 else -1
 
+private inline fun <T> Sequence<T>.forEachWith(action: T.() -> Unit) = forEach { it.action() }
+
+private fun clampQuality(value: Int) = when {
+  MIN_QUALITY > value -> MIN_QUALITY
+  value > MAX_QUALITY -> MAX_QUALITY
+  else -> value
+}
+
 private fun Item.qualityFactor(): Int = when {
   isBackstagePass() -> when {
     sellIn <= 0 -> -MAX_QUALITY
@@ -34,8 +39,8 @@ private fun Item.qualityFactor(): Int = when {
 class Shop(val items: List<Item>) {
   fun updateQuality() = items.asSequence()
     .filterNot(Item::isLegendary)
-    .forEach {
-      it.quality = min(MAX_QUALITY, max(MIN_QUALITY, it.quality + it.baseQualityModifier() * it.qualityFactor()))
-      --it.sellIn
+    .forEachWith {
+      quality = clampQuality(quality + baseQualityModifier() * qualityFactor())
+      --sellIn
     }
 }

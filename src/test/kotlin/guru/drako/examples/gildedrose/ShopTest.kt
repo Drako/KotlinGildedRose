@@ -30,32 +30,32 @@ class ShopTest {
         expected = Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 0, quality = LEGENDARY_QUALITY)
       ),
       TestData(
-        displayName = "Aged Brie gets better with time",
+        displayName = "Aged products get better with time",
         input = Item(name = "Aged Brie", sellIn = 2, quality = 0),
         expected = Item(name = "Aged Brie", sellIn = 1, quality = 1)
       ),
       TestData(
-        displayName = "Aged Brie gets better even faster after sellIn",
-        input = Item(name = "Aged Brie", sellIn = -1, quality = 5),
-        expected = Item(name = "Aged Brie", sellIn = -2, quality = 7)
+        displayName = "Aged products get better even faster after sellIn",
+        input = Item(name = "Aged Cheddar", sellIn = -1, quality = 5),
+        expected = Item(name = "Aged Cheddar", sellIn = -2, quality = 7)
       ),
       TestData(
-        displayName = "backstage tickets get more valuable approaching concert",
-        input = Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 15, quality = 20),
-        expected = Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 14, quality = 21)
+        displayName = "backstage passes get more valuable approaching concert",
+        input = Item(name = "Backstage passes", sellIn = 15, quality = 20),
+        expected = Item(name = "Backstage passes", sellIn = 14, quality = 21)
       ),
       TestData(
-        displayName = "backstage tickets get more valuable approaching concert (< 11 days left)",
+        displayName = "backstage passes get more valuable approaching concert (< 11 days left)",
         input = Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 10, quality = 25),
         expected = Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 9, quality = 27)
       ),
       TestData(
-        displayName = "backstage tickets get more valuable approaching concert (< 6 days left)",
+        displayName = "backstage passes get more valuable approaching concert (< 6 days left)",
         input = Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 5, quality = 35),
         expected = Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 4, quality = 38)
       ),
       TestData(
-        displayName = "backstage tickets become worthless after concert",
+        displayName = "backstage passes become worthless after concert",
         input = Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 0, quality = 50),
         expected = Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = -1, quality = 0)
       ),
@@ -76,8 +76,8 @@ class ShopTest {
       ),
       TestData(
         displayName = "conjured items degrade twice as fast as normal items (even after sellIn)",
-        input = Item(name = "conjured axe", sellIn = -1, quality = 10),
-        expected = Item(name = "conjured axe", sellIn = -2, quality = 6)
+        input = Item(name = "conjured bow", sellIn = -1, quality = 10),
+        expected = Item(name = "conjured bow", sellIn = -2, quality = 6)
       )
     ).map { (displayName, input, expected) ->
       dynamicTest(displayName) {
