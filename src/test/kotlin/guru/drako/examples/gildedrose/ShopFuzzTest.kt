@@ -42,7 +42,7 @@ class ShopFuzzTest {
           }
 
           // quality and sellIn stay unchanged for legendary items
-          val result = shop.items[0]
+          val result = shop.items.first()
           assertEquals(
             actual = result.quality,
             expected = quality
@@ -74,7 +74,7 @@ class ShopFuzzTest {
             shop.updateQuality()
           }
 
-          val result = shop.items[0]
+          val result = shop.items.first()
           assertTrue(
             actual = result.quality in (0..50),
             message = "quality must be in the range 0 to 50, but was ${result.quality}"

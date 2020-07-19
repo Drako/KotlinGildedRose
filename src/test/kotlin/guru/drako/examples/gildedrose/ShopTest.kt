@@ -12,7 +12,7 @@ class ShopTest {
   }
 
   private fun updateItem(item: Item): Item {
-    return Shop(items = listOf(item.copy())).apply { updateQuality() }.items[0]
+    return Shop(items = listOf(item.copy())).apply { updateQuality() }.items.first()
   }
 
   private data class TestData(
