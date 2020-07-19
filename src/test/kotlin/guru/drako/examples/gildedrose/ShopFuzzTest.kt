@@ -33,7 +33,7 @@ class ShopFuzzTest {
       val name = legendaryItemNames.random()
 
       val displayName =
-        "#${iteration + 1}: numberOfDays=$numberOfDays, name=\"$name\", sellIn=$sellIn, quality=$quality"
+        """#${iteration + 1}: numberOfDays=$numberOfDays, name="$name", sellIn=$sellIn, quality=$quality"""
 
       yield(
         dynamicTest(displayName) {
@@ -66,7 +66,7 @@ class ShopFuzzTest {
       val name = nonLegendaryItemNames.random()
 
       val displayName =
-        "#${iteration + 1}: numberOfDays=$numberOfDays, name=\"$name\", sellIn=$sellIn, quality=$quality"
+        """#${iteration + 1}: numberOfDays=$numberOfDays, name="$name", sellIn=$sellIn, quality=$quality"""
 
       yield(
         dynamicTest(displayName) {
