@@ -3,7 +3,6 @@ package guru.drako.examples.gildedrose
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
 import org.junit.jupiter.api.TestInstance
-import kotlin.random.Random
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -27,9 +26,9 @@ class ShopFuzzTest {
   @TestFactory
   fun `updateQualities on legenday goods should not break constraints`() = iterator {
     repeat(times = ITERATIONS) { iteration ->
-      val numberOfDays = Random.nextInt(from = 1, until = 101)
-      val sellIn = Random.nextInt(from = 1, until = 31) // in production this is actually always 0
-      val quality = Random.nextInt(from = 1, until = 51) // in production this is actually always 80
+      val numberOfDays = (1..101).random()
+      val sellIn = (1..31).random() // in production this is actually always 0
+      val quality = (1..51).random() // in production this is actually always 80
       val name = legendaryItemNames.random()
 
       val displayName =
@@ -60,9 +59,9 @@ class ShopFuzzTest {
   @TestFactory
   fun `updateQualities on non-legendary goods should not break constraints`() = iterator {
     repeat(times = ITERATIONS) { iteration ->
-      val numberOfDays = Random.nextInt(from = 1, until = 101)
-      val sellIn = Random.nextInt(from = 1, until = 31)
-      val quality = Random.nextInt(from = 1, until = 51)
+      val numberOfDays = (1..101).random()
+      val sellIn = (1..31).random()
+      val quality = (1..51).random()
       val name = nonLegendaryItemNames.random()
 
       val displayName =
