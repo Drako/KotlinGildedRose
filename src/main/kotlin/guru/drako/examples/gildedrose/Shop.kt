@@ -1,6 +1,5 @@
 package guru.drako.examples.gildedrose
 
-private const val MIN_QUALITY = 0
 private const val MAX_QUALITY = 50
 
 private val LEGENDARY_ITEMS = setOf("Sulfuras, Hand of Ragnaros")
@@ -30,17 +29,11 @@ private fun Item.qualityFactor(): Int = when {
   else -> if (sellIn <= 0) 2 else 1
 }
 
-private fun clampQuality(value: Int) = when {
-  MIN_QUALITY > value -> MIN_QUALITY
-  value > MAX_QUALITY -> MAX_QUALITY
-  else -> value
-}
-
 class Shop(val items: List<Item>) {
   fun updateQuality() = items.asSequence()
     .filterNot(Item::isLegendary)
     .forEachWith {
-      quality = clampQuality(quality + baseQualityModifier() * qualityFactor())
+      quality = (quality + baseQualityModifier() * qualityFactor()).coerceIn(0, 50)
       --sellIn
     }
 }
