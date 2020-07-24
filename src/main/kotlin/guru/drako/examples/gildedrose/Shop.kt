@@ -1,7 +1,5 @@
 package guru.drako.examples.gildedrose
 
-private const val MAX_QUALITY = 50
-
 private val LEGENDARY_ITEMS = setOf("Sulfuras, Hand of Ragnaros")
 
 private fun Item.isLegendary(): Boolean = name in LEGENDARY_ITEMS
@@ -20,7 +18,7 @@ private inline fun <T> Sequence<T>.forEachWith(action: T.() -> Unit) = forEach {
 
 private fun Item.qualityFactor(): Int = when {
   isBackstagePass() -> when {
-    sellIn <= 0 -> -MAX_QUALITY
+    sellIn <= 0 -> -quality
     sellIn <= 5 -> 3
     sellIn <= 10 -> 2
     else -> 1
