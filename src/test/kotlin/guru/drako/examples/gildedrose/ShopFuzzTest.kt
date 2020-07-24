@@ -24,8 +24,16 @@ class ShopFuzzTest {
     "Sulfuras, Hand of Ragnaros"
   )
 
+  private fun Item.update(times: Int) = copy().also { item ->
+    with(Shop(items = listOf(item))) {
+      repeat(times) {
+        updateQuality()
+      }
+    }
+  }
+
   @TestFactory
-  fun `updateQualities on legenday goods should not break constraints`() = iterator {
+  fun `updateQualities on legendary goods should not break constraints`() = iterator {
     repeat(times = ITERATIONS) { iteration ->
       val numberOfDays = Random.nextInt(from = 1, until = 101)
       val sellIn = Random.nextInt(from = 1, until = 31) // in production this is actually always 0
@@ -37,19 +45,16 @@ class ShopFuzzTest {
 
       yield(
         dynamicTest(displayName) {
-          val shop = Shop(items = listOf(Item(name = name, sellIn = sellIn, quality = quality)))
-          repeat(times = numberOfDays) {
-            shop.updateQuality()
-          }
+          val item = Item(name = name, sellIn = sellIn, quality = quality)
+            .update(times = numberOfDays)
 
           // quality and sellIn stay unchanged for legendary items
-          val result = shop.items[0]
           assertEquals(
-            actual = result.quality,
+            actual = item.quality,
             expected = quality
           )
           assertEquals(
-            actual = result.sellIn,
+            actual = item.sellIn,
             expected = sellIn
           )
         }
@@ -70,18 +75,15 @@ class ShopFuzzTest {
 
       yield(
         dynamicTest(displayName) {
-          val shop = Shop(items = listOf(Item(name = name, sellIn = sellIn, quality = quality)))
-          repeat(times = numberOfDays) {
-            shop.updateQuality()
-          }
+          val item = Item(name = name, sellIn = sellIn, quality = quality)
+            .update(times = numberOfDays)
 
-          val result = shop.items[0]
           assertTrue(
-            actual = result.quality in (0..50),
-            message = "quality must be in the range 0 to 50, but was ${result.quality}"
+            actual = item.quality in (0..50),
+            message = "quality must be in the range 0 to 50, but was ${item.quality}"
           )
           assertEquals(
-            actual = result.sellIn,
+            actual = item.sellIn,
             expected = sellIn - numberOfDays
           )
         }

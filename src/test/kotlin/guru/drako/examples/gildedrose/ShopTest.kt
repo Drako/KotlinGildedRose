@@ -11,8 +11,8 @@ class ShopTest {
     private const val LEGENDARY_QUALITY = 80
   }
 
-  private fun updateItem(item: Item): Item {
-    return Shop(items = listOf(item.copy())).apply { updateQuality() }.items[0]
+  private fun Item.update() = copy().also { updatedItem ->
+    Shop(items = listOf(updatedItem)).updateQuality()
   }
 
   private data class TestData(
@@ -83,7 +83,7 @@ class ShopTest {
       dynamicTest(displayName) {
         assertEquals(
           expected = expected,
-          actual = updateItem(input)
+          actual = input.update()
         )
       }
     }.iterator()
